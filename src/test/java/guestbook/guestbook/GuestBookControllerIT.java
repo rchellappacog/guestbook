@@ -1,6 +1,5 @@
 package guestbook.guestbook;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,16 +15,17 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 
 public class GuestBookControllerIT {
-@Autowired
+    @Autowired
     MockMvc mockMvc;
-@Autowired
+    @Autowired
     ObjectMapper objectMapper;
-@Test
-void create_FetchAll() throws Exception {
-    mockMvc.perform(
-            post("/guestbook")
-            .content(objectMapper.writeValueAsString("Hello world!"))
-            .contentType(MediaType.APPLICATION_JSON)
-    ).andExpect(status().isCreated());
-}
+
+    @Test
+    void create_FetchAll() throws Exception {
+        mockMvc.perform(
+                post("/guestbook")
+                .content(objectMapper.writeValueAsString("Hello world!"))
+                .contentType(MediaType.APPLICATION_JSON)
+        ).andExpect(status().isCreated());
+    }
 }
