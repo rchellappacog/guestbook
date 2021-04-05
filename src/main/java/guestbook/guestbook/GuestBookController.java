@@ -20,4 +20,9 @@ public class GuestBookController {
     public void create(@RequestBody String review) throws Exception {
         this.reviews.add(review);
     }
+
+    @GetMapping
+    public List<String> fetchAll() {
+        return reviews;
+    }
 }
