@@ -9,7 +9,7 @@ import java.util.List;
 @RestController
 @RequestMapping("guestbook")
 public class GuestBookController {
-    List<String> reviews;
+    List<GuestBookDto> reviews;
 
     public GuestBookController() {
         this.reviews = new ArrayList<>();
@@ -17,12 +17,12 @@ public class GuestBookController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void create(@RequestBody String review) throws Exception {
+    public void create(@RequestBody GuestBookDto review) throws Exception {
         this.reviews.add(review);
     }
 
     @GetMapping
-    public List<String> fetchAll() {
+    public List<GuestBookDto> fetchAll() {
         return reviews;
     }
 }

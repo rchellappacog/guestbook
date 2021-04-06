@@ -24,14 +24,18 @@ public class GuestBookControllerIT {
 
     @Test
     void create_FetchAll() throws Exception {
+        GuestBookDto guestBookDto = new GuestBookDto("peter", "nice place to visit!");
         mockMvc.perform(
                 post("/guestbook")
-                .content(objectMapper.writeValueAsString("Hello world!"))
+                .content(objectMapper.writeValueAsString(guestBookDto))
                 .contentType(MediaType.APPLICATION_JSON)
         ).andExpect(status().isCreated());
 
         mockMvc.perform(get("/guestbook"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("[0]").value("\"Hello world!\""));
+                .andExpect(jsonPath("length()").value(1))
+                .andExpect(jsonPath("[0].name").value("peter"))
+                .andExpect(jsonPath("[0].comment").value("nice place to visit!"));
+
     }
 }
