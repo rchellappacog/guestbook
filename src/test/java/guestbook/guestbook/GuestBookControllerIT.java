@@ -15,12 +15,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-
 public class GuestBookControllerIT {
     @Autowired
     MockMvc mockMvc;
     @Autowired
     ObjectMapper objectMapper;
+
+    @Autowired
+    GuestBookRepository guestBookRepository;
 
     @Test
     void create_FetchAll() throws Exception {
