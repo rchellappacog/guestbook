@@ -23,3 +23,16 @@ A deployed application on Heroku that uses Heroku Postgres as DB.
 Features
 Any visitor can post their name and a comment to the Guestbook.
 All visitors can see a list of every entry in the Guestbook.
+
+** 
+Endpoints:
+https://guestbook-sampleapp.herokuapp.com/guestbook
+
+//Adding a comment
+````
+JSON format
+{
+    "name" : "peter",
+    "comment": "nice artifacts!"
+}
+

@@ -1,0 +1,8 @@
+guestbook
+
+.request
+include::{snippets}/guestbook/http-request.adoc[]
+
+.response
+include::{snippets}/guestbook/http-response.adoc[]
+

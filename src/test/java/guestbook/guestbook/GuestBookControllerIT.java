@@ -3,6 +3,7 @@ package guestbook.guestbook;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
@@ -10,6 +11,9 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
+import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
+import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -17,6 +21,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@AutoConfigureRestDocs
 @ActiveProfiles("local")
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class GuestBookControllerIT {
@@ -35,13 +40,19 @@ public class GuestBookControllerIT {
                 post("/guestbook")
                 .content(objectMapper.writeValueAsString(guestBookDto))
                 .contentType(MediaType.APPLICATION_JSON)
-        ).andExpect(status().isCreated());
+        ).andExpect(status().isCreated())
+                .andDo(document("AddGuestBookEntry"));
 
         mockMvc.perform(get("/guestbook"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("length()").value(1))
                 .andExpect(jsonPath("[0].name").value("peter"))
-                .andExpect(jsonPath("[0].comment").value("nice place to visit!"));
+                .andExpect(jsonPath("[0].comment").value("nice place to visit!"))
+                // Follow Up to andExpect
+                .andDo(document("GuestBook", responseFields(
+                        fieldWithPath("[0].name").description("Person name"),
+                        fieldWithPath("[0].comment").description("Comment")
+                )));
 
     }
 
