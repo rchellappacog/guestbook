@@ -49,7 +49,7 @@ public class GuestBookControllerIT {
                 .andExpect(jsonPath("[0].name").value("peter"))
                 .andExpect(jsonPath("[0].comment").value("nice place to visit!"))
                 // Follow Up to andExpect
-                .andDo(document("GuestBook", responseFields(
+                .andDo(document("Guestbook", responseFields(
                         fieldWithPath("[0].name").description("Person name"),
                         fieldWithPath("[0].comment").description("Comment")
                 )));

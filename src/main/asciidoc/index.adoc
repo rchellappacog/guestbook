@@ -1,0 +1,14 @@
+Guestbook
+
+.request
+include::{snippets}/Guestbook/http-request.adoc[]
+
+.response
+include::{snippets}/Guestbook/http-response.adoc[]
+
+AddGuestBookEntry
+.request
+include::{snippets}/AddGuestBookEntry/http-request.adoc[]
+
+.response
+include::{snippets}/AddGuestBookEntry/http-response.adoc[]
