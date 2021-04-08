@@ -24,11 +24,11 @@ Features
 Any visitor can post their name and a comment to the Guestbook.
 All visitors can see a list of every entry in the Guestbook.
 
-** 
-Endpoints:
+
+# Endpoints:
 https://guestbook-sampleapp.herokuapp.com/guestbook
 
-//Adding a comment
+//Adding a comment -- POST to above url
 ````
 JSON format
 {
@@ -36,3 +36,11 @@ JSON format
     "comment": "nice artifacts!"
 }
 
+## A local application running in Docker that uses Docker Postgres as DB
+1. Need to run a postgress docker instance on 5432
+docker run --name my-postgres -e POSTGRES_PASSWORD=*** -p 5432:5432 -d postgres
+2. Update the postgres password in `application-local.properties`
+3. Dockerize application : docker -t build guestbook:dev . ( do this from project name directory)
+4. Run the docker image in a container:   
+docker run -d -p 1000:8080 --name guestbook1 -e PORT=8080 --rm guestboook:dev
+5. Url for the application: http://localhost:1000
